@@ -1,0 +1,39 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Karan\Desktop\workshop\extc\sem 6\project\interfacing_of_keyboard_&_lcd.uvproj
+Project File Date:  03/28/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling interfacing_of_keyboard_&_lcd.c...
+interfacing_of_keyboard_ _lcd.c(1): error C318: can't open file 'interfacing_of_keyboard_ _lcd.c'
+compiling interfacing_of_keyboard_&_lcd_2.c...
+interfacing_of_keyboard_ _lcd_2.c(1): error C318: can't open file 'interfacing_of_keyboard_ _lcd_2.c'
+Target not created
+Build target 'Target 1'
+compiling interfacing_of_keyboard_&_lcd.c...
+interfacing_of_keyboard_ _lcd.c(1): error C318: can't open file 'interfacing_of_keyboard_ _lcd.c'
+Target not created
+Rebuild target 'Target 1'
+compiling interfacing_of_keyboard_&_lcd.c...
+interfacing_of_keyboard_ _lcd.c(1): error C318: can't open file 'interfacing_of_keyboard_ _lcd.c'
+Target not created
+Build target 'Target 1'
+compiling interfacing_of_keyboard_&_lcd.c...
+interfacing_of_keyboard_ _lcd.c(1): error C318: can't open file 'interfacing_of_keyboard_ _lcd.c'
+Target not created
+Build target 'Target 1'
+compiling text.c...
+text.c(55): warning C206: 'send_char': missing function-prototype
+text.c(55): error C267: 'send_char': requires ANSI-style prototype
+text.c(80): error C202: 'COl': undefined identifier
+text.c(92): error C202: 'COl': undefined identifier
+text.c(104): error C202: 'COl': undefined identifier
+text.c(116): error C202: 'COl': undefined identifier
+text.c(128): error C231: 'send_char': redefinition
+text.c(133): error C231: 'send_char': redefinition
+text.c(164): error C141: syntax error near '}'
+Target not created

@@ -1,0 +1,63 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Karan\Desktop\workshop\extc\sem 6\project\lcd.uvproj
+Project File Date:  03/28/2015
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling lcd.c...
+lcd.c(55): warning C206: 'send_char': missing function-prototype
+lcd.c(55): error C267: 'send_char': requires ANSI-style prototype
+lcd.c(80): error C202: 'COl': undefined identifier
+lcd.c(92): error C202: 'COl': undefined identifier
+lcd.c(104): error C202: 'COl': undefined identifier
+lcd.c(116): error C202: 'COl': undefined identifier
+lcd.c(128): error C231: 'send_char': redefinition
+lcd.c(133): error C231: 'send_char': redefinition
+lcd.c(164): error C141: syntax error near '}'
+Target not created
+Rebuild target 'Target 1'
+compiling lcd.c...
+lcd.c(55): warning C206: 'send_char': missing function-prototype
+lcd.c(55): error C267: 'send_char': requires ANSI-style prototype
+lcd.c(128): error C231: 'send_char': redefinition
+lcd.c(133): error C231: 'send_char': redefinition
+lcd.c(164): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling lcd.c...
+lcd.c(55): warning C206: 'send_char': missing function-prototype
+lcd.c(55): error C267: 'send_char': requires ANSI-style prototype
+lcd.c(128): error C231: 'send_char': redefinition
+lcd.c(133): error C231: 'send_char': redefinition
+lcd.c(163): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling lcd.c...
+linking...
+Program Size: data=123.0 xdata=0 code=1883
+creating hex file from "lcd"...
+"lcd" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling lcd.c...
+lcd.c(173): error C202: 'A': undefined identifier
+lcd.c(175): error C202: 'C': undefined identifier
+lcd.c(176): error C202: 'D': undefined identifier
+lcd.c(177): error C202: 'E': undefined identifier
+lcd.c(178): error C202: 'F': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling lcd.c...
+linking...
+Program Size: data=78.0 xdata=0 code=1910
+creating hex file from "lcd"...
+"lcd" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling lcd.c...
+linking...
+Program Size: data=123.0 xdata=0 code=1955
+creating hex file from "lcd"...
+"lcd" - 0 Error(s), 0 Warning(s).

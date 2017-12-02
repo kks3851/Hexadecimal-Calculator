@@ -1,0 +1,392 @@
+A51 MACRO ASSEMBLER  CALC                                                                 04/16/2015 10:31:03 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN calc.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE calc.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1      ORG 0H
+                       2                 
+0000 758000            3                     MOV P0,#00H
+0003 7438              4                 MOV A,#38H 
+0005 31DD              5                     ACALL COMMAND
+0007 31FD              6                     ACALL DELAY
+0009 740E              7                     MOV A,#0EH
+000B 31DD              8                     ACALL COMMAND
+000D 31FD              9                     ACALL DELAY
+000F 7401             10     K0:     MOV A,#01H
+0011 31DD             11                     ACALL COMMAND
+0013 31FD             12                     ACALL DELAY
+0015 7406             13                     MOV A,#06H
+0017 31DD             14                     ACALL COMMAND
+0019 31FD             15                     ACALL DELAY
+001B 7486             16                     MOV A,#86H
+001D 31DD             17                     ACALL COMMAND
+001F 31FD             18                 ACALL DELAY
+                      19               
+0021 75B0FF           20               MOV P3,#0FFH   
+0024 759000           21     K1:   MOV P1,#00H    
+0027 E5B0             22           MOV A,P3
+0029 550F             23           ANL A,00001111B
+002B B40FF6           24           CJNE A,#00001111B,K1
+002E 31FD             25     K2:   ACALL DELAY
+0030 E5B0             26           MOV A,P3
+0032 550F             27           ANL A,00001111B
+0034 B40F02           28           CJNE A,#00001111B,K3
+0037 80F5             29           SJMP K2
+0039 31FD             30     K3:   ACALL DELAY
+003B E5B0             31           MOV A,P3
+003D 550F             32           ANL A,00001111B
+003F B40F02           33           CJNE A,#00001111B,K4
+0042 80EA             34           SJMP K2
+0044 7590FE           35     K4:   MOV P1,#11111110B
+0047 E5B0             36           MOV A,P3
+0049 540F             37           ANL A,#00001111B
+004B B40F21           38           CJNE A,#00001111B,RW0
+004E 7590FD           39           MOV P1,#11111101B
+0051 E5B0             40           MOV A,P3
+0053 540F             41           ANL A,#00001111B
+0055 B40F1C           42           CJNE A,#00001111B,RW1
+0058 7590FB           43           MOV P1,#11111011B
+005B E5B0             44           MOV A,P3
+005D 540F             45           ANL A,#00001111B
+005F B40F17           46           CJNE A,#00001111B,RW2
+0062 7590F7           47           MOV P1,#11110111B
+0065 E5B0             48           MOV A,P3
+0067 540F             49           ANL A,#00001111B
+0069 B40F12           50           CJNE A,#00001111B,RW3
+006C 02002E           51           LJMP K2
+                      52           
+006F 900300           53     RW0:MOV DPTR,#300H
+0072 800D             54           SJMP FIND1
+0074 900304           55     RW1:MOV DPTR,#304H
+0077 8008             56           SJMP FIND1
+0079 900308           57     RW2:MOV DPTR,#308H
+007C 8003             58           SJMP FIND1
+A51 MACRO ASSEMBLER  CALC                                                                 04/16/2015 10:31:03 PAGE     2
+
+007E 90030C           59     RW3:MOV DPTR,#30CH
+                      60     
+0081 13               61     FIND1: RRC A
+0082 5003             62            JNC MATCH1
+0084 A3               63            INC DPTR 
+0085 80FA             64            SJMP FIND1
+0087 E4               65     MATCH1:CLR A
+0088 93               66            MOVC A,@A+DPTR
+0089 F8               67            MOV R0,A
+                      68              
+008A E8               69                MOV A,R0
+008B 940A             70                SUBB A,#0AH
+008D 5006             71                JNC A1
+008F E8               72                MOV A,R0
+0090 2430             73                ADD A,#30H
+0092 D3               74                SETB C
+0093 4003             75                JC B1
+0095 E8               76     A1:        MOV A,R0
+0096 2437             77                ADD A,#37H
+0098 31ED             78     B1:        ACALL DAT
+009A 75A000           79     OP:        MOV P2,#00H
+                      80                     
+                      81             
+                      82                     
+                      83     
+                      84              
+009D E5A0             85     L1:   MOV A,P2
+009F 541F             86           ANL A,#00011111B
+00A1 B40002           87           CJNE A,#00H,L2
+00A4 80F7             88               SJMP L1
+00A6 E5A0             89     L2:   MOV A,P2
+00A8 FF               90           MOV R7,A
+                      91               
+                      92             
+00A9 BF0103           93              CJNE R7,#00000001B,ADD0
+00AC 02000F           94               LJMP K0
+                      95     
+                      96               
+00AF BF0207           97     ADD0:   CJNE R7,#00000010B,DIF0
+00B2 742B             98            MOV A,#2BH
+00B4 31ED             99                ACALL DAT
+00B6 0200D4          100                 LJMP O2
+                     101                     
+00B9 BF0407          102     DIF0:   CJNE R7,#00000100B,PROD0
+00BC 742D            103            MOV A,#2DH
+00BE 31ED            104                ACALL DAT
+00C0 0200D4          105                 LJMP O2
+                     106                     
+00C3 BF0807          107     PROD0:  CJNE R7,#00001000B,QUO0
+00C6 742A            108                MOV A,#2AH
+00C8 31ED            109                ACALL DAT
+00CA 0200D4          110                 LJMP O2
+                     111                     
+00CD 742F            112     QUO0:   MOV A,#2FH
+00CF 31ED            113                     ACALL DAT
+00D1 0200D4          114                 LJMP O2
+                     115                     
+                     116           
+                     117               
+                     118     
+00D4 75B0FF          119     O2:       MOV P3,#0FFH
+00D7 759000          120     M1:   MOV P1,#0H
+00DA E5B0            121           MOV A,P3
+00DC 540F            122           ANL A,#00001111B
+00DE B40FF6          123           CJNE A,#00001111B,M1
+00E1 31FD            124     M2:   ACALL DELAY
+A51 MACRO ASSEMBLER  CALC                                                                 04/16/2015 10:31:03 PAGE     3
+
+                     125                     
+                     126                     
+                     127                     
+00E3 E5A0            128                MOV A,P2
+00E5 B4011F          129                CJNE A,#00000001B,CONT
+00E8 7404            130                MOV A,#4H
+00EA 31DD            131                     ACALL COMMAND
+00EC 31FD            132                     ACALL DELAY
+00EE 7420            133                     MOV A,#' '
+00F0 31ED            134                 ACALL DAT
+00F2 31ED            135                     ACALL DAT
+00F4 7406            136                     MOV A,#06H
+00F6 31DD            137                     ACALL COMMAND
+00F8 31FD            138                     ACALL DELAY
+00FA 7487            139                     MOV A,#87H
+00FC 31DD            140                     ACALL COMMAND
+00FE 31FD            141                 ACALL DELAY
+0100 C2A0            142                     CLR P2.0
+0102 31FD            143                     ACALL DELAY
+0104 02009A          144                     LJMP OP
+                     145                     
+                     146               
+0107                 147     CONT:
+0107 E5B0            148               MOV A,P3
+0109 540F            149           ANL A,#00001111B
+010B B40F02          150           CJNE A,#00001111B,M3
+010E 80D1            151           SJMP M2
+0110 31FD            152     M3:   ACALL DELAY
+0112 E5B0            153           MOV A,P3
+0114 540F            154           ANL A,#00001111B
+0116 B40F02          155           CJNE A,#00001111B,M4
+0119 80C6            156           SJMP M2
+011B 7590FE          157     M4:   MOV P1,#11111110B
+011E E5B0            158           MOV A,P3
+0120 540F            159           ANL A,#00001111B
+0122 B40F21          160           CJNE A,#00001111B,RW02
+0125 7590FD          161           MOV P1,#11111101B
+0128 E5B0            162           MOV A,P3
+012A 540F            163           ANL A,#00001111B
+012C B40F1C          164           CJNE A,#00001111B,RW12
+012F 7590FB          165           MOV P1,#11111011B
+0132 E5B0            166           MOV A,P3
+0134 540F            167           ANL A,#00001111B
+0136 B40F17          168           CJNE A,#00001111B,RW22
+0139 7590F7          169           MOV P1,#11110111B
+013C E5B0            170           MOV A,P3
+013E 540F            171           ANL A,#00001111B
+0140 B40F12          172           CJNE A,#00001111B,RW32
+0143 0200E1          173           LJMP M2
+                     174           
+0146 900300          175     RW02:MOV DPTR,#300H
+0149 800D            176            SJMP FIND2
+014B 900304          177     RW12:MOV DPTR,#304H
+014E 8008            178            SJMP FIND2
+0150 900308          179     RW22:MOV DPTR,#308H
+0153 8003            180            SJMP FIND2
+0155 90030C          181     RW32:MOV DPTR,#30CH
+                     182     
+0158 13              183     FIND2: RRC A
+0159 5003            184            JNC MATCH2
+015B A3              185            INC DPTR 
+015C 80FA            186            SJMP FIND2
+015E E4              187     MATCH2: CLR A
+015F 93              188             MOVC A,@A+DPTR
+0160 F9              189             MOV R1,A
+                     190           
+A51 MACRO ASSEMBLER  CALC                                                                 04/16/2015 10:31:03 PAGE     4
+
+0161 E9              191                 MOV A,R1
+0162 940A            192                SUBB A,#0AH
+0164 5006            193                JNC A2
+0166 E9              194                MOV A,R1
+0167 2430            195                ADD A,#30H
+0169 D3              196                SETB C
+016A 4003            197                JC B2
+016C E9              198     A2:        MOV A,R1
+016D 2437            199                ADD A,#37H
+016F 31ED            200     B2:        ACALL DAT
+0171 75A000          201                MOV P2,#00H
+                     202                
+0174 743D            203                MOV A,#3DH
+0176 31ED            204                ACALL DAT
+0178 75A000          205                MOV P2,#00H
+                     206                
+                     207                
+017B BF0207          208            CJNE R7,#00000010B,DIF
+017E E8              209            MOV A,R0
+017F 29              210            ADD A,R1
+0180 F580            211            MOV P0,A
+0182 0201A4          212                LJMP ANS 
+                     213                
+0185 BF0407          214     DIF:   CJNE R7,#00000100B,PROD
+0188 E8              215            MOV A,R0
+0189 99              216            SUBB A,R1
+018A F580            217            MOV P0,A
+018C 0201A4          218                LJMP ANS
+                     219                
+018F BF0809          220     PROD:  CJNE R7,#00001000B,QUO
+0192 E8              221                MOV A,R0
+0193 89F0            222            MOV B,R1
+0195 A4              223            MUL AB
+0196 F580            224            MOV P0,A
+0198 0201A4          225                LJMP ANS
+                     226                
+019B E8              227     QUO:   MOV A,R0
+019C 89F0            228            MOV B,R1
+019E 84              229            DIV AB
+019F F580            230            MOV P0,A
+01A1 0201A4          231            LJMP ANS
+                     232     
+                     233     
+01A4 E580            234     ANS:   MOV A,P0
+01A6 FE              235                MOV R6,A
+01A7 54F0            236            ANL A,#0F0H
+01A9 C4              237                SWAP A
+01AA FD              238                MOV R5,A
+01AB C3              239                CLR C
+01AC 940A            240                SUBB A,#0AH
+01AE 5006            241                JNC DOWN
+01B0 ED              242                MOV A,R5
+01B1 2430            243                ADD A,#30H
+01B3 FD              244                MOV R5,A
+01B4 8004            245            SJMP DOWN2
+                     246                
+01B6 ED              247     DOWN:  MOV A,R5
+01B7 2437            248                ADD A,#37H                     
+01B9 FD              249                MOV R5,A
+                     250     
+01BA EE              251     DOWN2: MOV A,R6
+01BB 540F            252                ANL A,#0FH
+01BD FE              253                MOV R6,A
+01BE C3              254                CLR C
+01BF 940A            255                SUBB A,#0AH
+01C1 5005            256                JNC DOWN1
+A51 MACRO ASSEMBLER  CALC                                                                 04/16/2015 10:31:03 PAGE     5
+
+01C3 EE              257                MOV A,R6
+01C4 2430            258                ADD A,#30H
+01C6 8003            259                SJMP DOWN3
+01C8 EE              260     DOWN1: MOV A,R6
+01C9 2437            261            ADD A,#37H
+01CB FC              262     DOWN3: MOV R4,A
+                     263     
+                     264                     
+01CC ED              265                     MOV A,R5
+01CD 31ED            266                     ACALL DAT
+01CF EC              267                     MOV A,R4
+01D0 31ED            268                     ACALL DAT
+                     269                     
+                     270                     
+01D2 75A000          271                     MOV P2,#00H
+01D5 E5A0            272     HERE:   MOV A,P2
+01D7 B401FB          273                     CJNE A,#00000001B,HERE
+01DA 02000F          274                     LJMP K0
+                     275     
+                     276     
+01DD                 277     COMMAND:
+01DD F580            278                     MOV P0,A
+01DF C2A5            279                     CLR P2.5
+01E1 C2A6            280                     CLR P2.6
+01E3 D2A7            281                     SETB P2.7
+01E5 31FD            282                     ACALL DELAY
+01E7 C2A7            283                     CLR P2.7
+01E9 75A000          284                     MOV P2,#00H
+01EC 22              285                     RET 
+01ED                 286     DAT:    
+01ED F580            287                     MOV  P0,A
+01EF D2A5            288                     SETB P2.5
+01F1 C2A6            289                     CLR  P2.6
+01F3 D2A7            290                     SETB P2.7
+01F5 31FD            291                     ACALL DELAY
+01F7 C2A7            292                     CLR P2.7
+01F9 75A000          293                     MOV P2,#00H
+01FC 22              294                     RET
+                     295     
+01FD 7B32            296     DELAY:  MOV R3,#50
+01FF 7AFF            297     HERE2:  MOV R2,#255
+0201 DAFE            298     HERE1:  DJNZ R2,HERE1
+0203 DBFA            299                     DJNZ R3,HERE2
+0205 22              300                     RET
+                     301     
+0300                 302     ORG 300H
+0300 00010203        303             DB 0H,1H,2H,3H
+0304 04050607        304             DB 4H,5H,6H,7H
+0308 08090A0B        305             DB 8H,9H,0AH,0BH
+030C 0C0D0E0F        306             DB 0CH,0DH,0EH,0FH
+                     307     
+                     308     END
+A51 MACRO ASSEMBLER  CALC                                                                 04/16/2015 10:31:03 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+A1 . . . . . . . .  C ADDR   0095H   A   
+A2 . . . . . . . .  C ADDR   016CH   A   
+ADD0 . . . . . . .  C ADDR   00AFH   A   
+ANS. . . . . . . .  C ADDR   01A4H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+B1 . . . . . . . .  C ADDR   0098H   A   
+B2 . . . . . . . .  C ADDR   016FH   A   
+COMMAND. . . . . .  C ADDR   01DDH   A   
+CONT . . . . . . .  C ADDR   0107H   A   
+DAT. . . . . . . .  C ADDR   01EDH   A   
+DELAY. . . . . . .  C ADDR   01FDH   A   
+DIF. . . . . . . .  C ADDR   0185H   A   
+DIF0 . . . . . . .  C ADDR   00B9H   A   
+DOWN . . . . . . .  C ADDR   01B6H   A   
+DOWN1. . . . . . .  C ADDR   01C8H   A   
+DOWN2. . . . . . .  C ADDR   01BAH   A   
+DOWN3. . . . . . .  C ADDR   01CBH   A   
+FIND1. . . . . . .  C ADDR   0081H   A   
+FIND2. . . . . . .  C ADDR   0158H   A   
+HERE . . . . . . .  C ADDR   01D5H   A   
+HERE1. . . . . . .  C ADDR   0201H   A   
+HERE2. . . . . . .  C ADDR   01FFH   A   
+K0 . . . . . . . .  C ADDR   000FH   A   
+K1 . . . . . . . .  C ADDR   0024H   A   
+K2 . . . . . . . .  C ADDR   002EH   A   
+K3 . . . . . . . .  C ADDR   0039H   A   
+K4 . . . . . . . .  C ADDR   0044H   A   
+L1 . . . . . . . .  C ADDR   009DH   A   
+L2 . . . . . . . .  C ADDR   00A6H   A   
+M1 . . . . . . . .  C ADDR   00D7H   A   
+M2 . . . . . . . .  C ADDR   00E1H   A   
+M3 . . . . . . . .  C ADDR   0110H   A   
+M4 . . . . . . . .  C ADDR   011BH   A   
+MATCH1 . . . . . .  C ADDR   0087H   A   
+MATCH2 . . . . . .  C ADDR   015EH   A   
+O2 . . . . . . . .  C ADDR   00D4H   A   
+OP . . . . . . . .  C ADDR   009AH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+PROD . . . . . . .  C ADDR   018FH   A   
+PROD0. . . . . . .  C ADDR   00C3H   A   
+QUO. . . . . . . .  C ADDR   019BH   A   
+QUO0 . . . . . . .  C ADDR   00CDH   A   
+RW0. . . . . . . .  C ADDR   006FH   A   
+RW02 . . . . . . .  C ADDR   0146H   A   
+RW1. . . . . . . .  C ADDR   0074H   A   
+RW12 . . . . . . .  C ADDR   014BH   A   
+RW2. . . . . . . .  C ADDR   0079H   A   
+RW22 . . . . . . .  C ADDR   0150H   A   
+RW3. . . . . . . .  C ADDR   007EH   A   
+RW32 . . . . . . .  C ADDR   0155H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
